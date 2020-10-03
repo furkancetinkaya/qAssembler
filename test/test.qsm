@@ -1,0 +1,36 @@
+ORG 100
+@myvar 0x1864
+
+SEGMENT $MYSG{
+
+    .start:                             ;; This is a comment
+        MOV ds, ax
+        MOV word [ 1024 ], 2048
+        MOV ax, cx
+        INT 3
+        INT 2
+    .end:
+        PUSH ax
+        PUSH cs
+        PUSH [ bx:si:1024 ]
+        POP ax
+        POP ds
+        POP [ si ]
+}
+
+SEGMENT $NEWSEG{
+
+    .main:
+        INB dx
+        INB 100
+        OUTB dx
+        OUTW 200
+
+        MOV ax, 10!
+        
+
+        MOV ax, -@myvar
+        MOV ax, -0x7fff
+        MOV ax, -0x0000
+        MOV ax, -0xFFFF
+}
